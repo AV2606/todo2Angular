@@ -9,9 +9,33 @@
 </form>
 <hr>
 <h3>Your tasks:</h3>
-<ul>
+<!-- <ul>
     <li *ngFor="let t of tasks" >
         {{t}}
         <button (click)="handleRemove(t)" >Remove</button>
     </li>
-</ul>
+</ul> -->
+
+<table class="table table-striped">
+    <thead><tr>
+        <td>Tasks</td>
+        <td>Ops</td>
+    </tr></thead>
+    <tbody>
+        <tr *ngFor="let t of tasks" >
+            <!-- tasks -->
+            <td>
+                <span *ngIf="!t.isUpdated" >{{t.name}}</span>
+                <span *ngIf="t.isUpdated">
+                    <input type="text" name="newTask" #newTask>
+                    <button type="submit" (click)="handleUpdating(newTask.value,t)">Update</button>
+                </span>
+            </td>
+            <!-- buttons -->
+            <td>
+                <button (click)="handleRemove(t)" >Remove</button>
+                <button (click)="handleUpdate(t)" >Update</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
