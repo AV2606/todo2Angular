@@ -27,5 +27,20 @@ export class TodoComponent implements OnInit {
     this.tasks.push(newTask);
     addForm.resetForm();
   }
+  handleRemove(task:string){
+    //this.tasks=this.tasks.filter((myTask)=>myTask!=task);
+    this.tasks=this.removeFirst(this.tasks,task);
+  }
+  removeFirst(arr:string[],value:string):string[]{
+    let r:string[]=[];
+    let removed1=false;
+      arr.forEach(element => {
+        if(element!=value||removed1)
+          r.push(element);
+        else 
+          removed1=true;
+      });
+    return r;
+  }
 
 }
