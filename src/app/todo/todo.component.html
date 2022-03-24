@@ -7,8 +7,18 @@
     <input type="text" ngModel name="task" id="">
     <button type="submit">AddTask</button>
 </form>
+
+<div>
+    <label for="search">
+        Search:
+        <input type="text" #SearchTB id="searchTB" (keyup)="handleSearch(SearchTB.value)">
+    </label>
+</div>
+
+
 <hr>
-<h3>Your tasks:</h3>
+<h3>Your tasks: <button (click)="handleSave()" >Save Changes
+</button></h3>
 <!-- <ul>
     <li *ngFor="let t of tasks" >
         {{t}}
@@ -18,16 +28,19 @@
 
 <table class="table table-striped">
     <thead><tr>
-        <td>Tasks</td>
+        <td>Tasks&nbsp;&nbsp;
+            <span><button #AscBtn (click)="handleSort(SortEnum.Ascending,AscBtn)">&uarr;</button><!--Up btn-->
+            <button #DescBtn (click)="handleSort(SortEnum.Descending,DescBtn)">&darr;</button></span><!--down btn-->
+            </td>
         <td>Ops</td>
     </tr></thead>
     <tbody>
-        <tr *ngFor="let t of tasks" >
+        <tr *ngFor="let t of tasks" [hidden]="!t.isVisible">
             <!-- tasks -->
             <td>
                 <span *ngIf="!t.isUpdated" >{{t.name}}</span>
                 <span *ngIf="t.isUpdated">
-                    <input type="text" name="newTask" #newTask>
+                    <input type="text" name="newTask" #newTask value="{{t.name}}" placeholder="{{t.name}}">
                     <button type="submit" (click)="handleUpdating(newTask.value,t)">Update</button>
                 </span>
             </td>
